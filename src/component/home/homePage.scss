@@ -1,0 +1,80 @@
+.home-container{
+    position: relative;
+}
+
+.home-bg-img{
+    height: 95vh;
+    width: 100vw;
+    object-fit: cover;
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(0.3); /* Google Chrome, Safari 6+ & Opera 15+ */
+    filter: grayscale(0.3); /* Microsoft Edge and Firefox 35+ */
+}
+
+.centered-box {
+    height: 30vh;
+    width: 70vw;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-color: white;
+    opacity: 0.7;
+  }
+
+.centered-text{
+    height: 30vh;
+    width: 70vw;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    text-align: center;
+    // padding-top: 3vh;
+   
+  }
+
+.title-text{
+    font-size: 80px;
+    font-family: cursive;
+}
+
+.description-text{
+    font-size: 30px;
+    font-family: fantasy;
+}
+
+.start-button{
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.start-button > a{
+    color: white;
+}
+
+@media only screen and (max-width: 768px) {
+    .title-text{
+        font-size: 50px;
+    }
+    
+    .description-text{
+        font-size: 20px;
+    }
+    
+    .start-button{
+        margin-top: 15px;
+        padding: 10px;
+        font-size: 20px;
+    }
+
+    .centered-text{
+        height: 20vh;
+        top: 35%;
+    }
+  }
+
+  

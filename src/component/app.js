@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from "react-dom";
 import { HashRouter as Router, Route, Switch, Redirect, Link } from 'react-router-dom';
-import MainComponent from './mainComponent.jsx';
+import HomePageComponent from './home/homePage'
 import NavbarComponent from './navBar/Navbar'
 
 import SignUpComponent from './login/SignUp'
@@ -24,7 +24,7 @@ class App extends Component {
                     <NavbarComponent />
                     <Switch>
                         <Route exact path="/" render={() => (<Redirect to="/home" />)}/>
-                        <Route path="/home" component={MainComponent} />
+                        <Route path="/home" component={HomePageComponent} />
                         <Route path="/signup" component={SignUpComponent} />
                         <Route path="/signin" component={SignInComponent} />
                     </Switch>
