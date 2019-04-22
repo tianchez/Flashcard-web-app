@@ -18,7 +18,7 @@ class NavbarComponent extends Component{
         edge: "left",
         inDuration: 250
     });
-}
+  }
 
   render(){
     this.desktop_links = this.props.auth.uid ? <SignedInLinks profile={this.props.profile} mobile={false} /> : <SignedOutLinks mobile={false}/>;
@@ -28,8 +28,9 @@ class NavbarComponent extends Component{
       <div className="nav-bar">
         <nav className="nav-wrapper cyan accent-4">
           <div className="container">
-            <a href="#" data-target="mobile-demo" className="sidenav-trigger"><i className="material-icons">menu</i></a>
-            <Link to='/' className="brand-logo"><h1>QuizMe</h1></Link>
+            <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+              <i className="material-icons">menu</i></a>
+            <Link to='/' className="brand-logo"><h3>QuizMe</h3></Link>
             {this.desktop_links}
           </div>
         </nav>
@@ -39,6 +40,8 @@ class NavbarComponent extends Component{
       </div>
 
     )
+
+
   }
 
 }

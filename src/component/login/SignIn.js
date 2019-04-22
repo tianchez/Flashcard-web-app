@@ -32,7 +32,7 @@ class SignInComponent extends Component {
 
 
   render() {
-    // if (this.props.auth.uid) return <Redirect to='/' /> 
+    if (this.props.auth.uid) return <Redirect to='/' /> 
     return (
       <div className="container">
         <ReactNotification ref={this.notificationDOMRef} />
@@ -49,7 +49,6 @@ class SignInComponent extends Component {
           <div className="input-field">
             <button className="btn pink lighten-1 z-depth-0">Login</button>
             <div className="center red-text">
-              {/* { authError ? <p>{authError}</p> : null } */}
             </div>
           </div>
         </form>
@@ -63,12 +62,12 @@ class SignInComponent extends Component {
       console.log(this.props.authError);
       this.addNotification('Login Error', this.props.authError, 'danger');
     }
-    else if(prevProps.authTime !== this.props.authTime){
-      console.log("@@");
-      console.log(this.props);
-      console.log(this.props.auth);
-      // this.addNotification('Login successfully', '111', 'success');
-    }
+    // else if(prevProps.authTime !== this.props.authTime){
+    //   console.log("@@");
+    //   console.log(this.props);
+    //   console.log(this.props.auth);
+    //   // this.addNotification('Login successfully', '111', 'success');
+    // }
   }
 
   addNotification(title, msg, type) {

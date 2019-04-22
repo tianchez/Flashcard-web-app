@@ -27,7 +27,7 @@
     height: 30vh;
     width: 70vw;
     position: absolute;
-    top: 40%;
+    top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
     
@@ -72,8 +72,13 @@
     }
 
     .centered-text{
-        height: 20vh;
-        top: 35%;
+        height: 25vh;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    .centered-text{
+        height: 40vh;
     }
   }
 

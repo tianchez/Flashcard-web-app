@@ -3,6 +3,9 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { signUp } from '../../store/actions/authActions'
 
+import ReactNotification from "react-notifications-component";
+import "react-notifications-component/dist/theme.css";
+
 class SignUpComponent extends Component {
   constructor(props){
     super(props);
@@ -14,6 +17,9 @@ class SignUpComponent extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+
+    this.addNotification = this.addNotification.bind(this);
+    this.notificationDOMRef = React.createRef();
   }
 
   handleChange(event){
@@ -29,10 +35,10 @@ class SignUpComponent extends Component {
   }
 
   render() {
-    // const { auth, authError } = this.props;
-    // if (auth.uid) return <Redirect to='/' /> 
+    if (this.props.auth.uid) return <Redirect to='/' /> 
     return (
       <div className="container">
+        <ReactNotification ref={this.notificationDOMRef} />
         <form className="white">
           <h5 className="grey-text text-darken-3">Sign Up</h5>
           <div className="input-field">
@@ -60,13 +66,36 @@ class SignUpComponent extends Component {
       </div>
     )
   }
+
+  componentDidUpdate(prevProps){    
+    if(prevProps.authTime !== this.props.authTime && this.props.authError !== null){
+      console.log("!!"); 
+      console.log(this.props.authError);
+      this.addNotification('Signup Error', this.props.authError, 'danger');
+    }
+  }
+
+  addNotification(title, msg, type) {
+    this.notificationDOMRef.current.addNotification({
+      title: title,
+      message: msg,
+      type: type,
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: { duration: 2000 },
+      dismissable: { click: true }
+    });
+  }
 }
 
 const mapStateToProps = (state) => {
   console.log(state);
   return {
     auth: state.firebase.auth,
-    authError: state.auth.authError
+    authError: state.auth.authError,
+    authTime: new Date()
   }
 }
 

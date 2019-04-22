@@ -15,7 +15,7 @@ class HomePageComponent extends Component{
         
     }
     render(){
-        let start_button_link = this.props.auth.uid ? '/create': '/signin';
+        let start_button_link = this.props.auth.uid ? '/myquiz': '/signin';
            return(
                <div className="home-container">
                 <img className="home-bg-img" src={backgroundImage} alt="backgroundImage" />

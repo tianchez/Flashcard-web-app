@@ -1,0 +1,25 @@
+.card-view{
+    margin:auto;
+    padding: 60px;
+    border: 2px solid black;
+
+    height: 30vh;
+    width: 70vw;
+    
+    text-align: center;
+}
+
+.card-view > input{
+    text-align: center; 
+}
+
+.card-view > input[type="text"],
+.term-text{
+    font-size: 40px;
+}
+
+@media only screen and (max-width: 768px) {
+    .quiz-description{
+        display: none;
+    }
+}

@@ -7,7 +7,8 @@ import NavbarComponent from './navBar/Navbar'
 import SignUpComponent from './login/SignUp'
 import SignInComponent from './login/SignIn'
 
-
+import MyQuizComponent from './myQuiz/myQuiz'
+import QuizViewComponent from './myQuiz/quizView'
 
 class App extends Component {
     constructor(props) {
@@ -27,6 +28,8 @@ class App extends Component {
                         <Route path="/home" component={HomePageComponent} />
                         <Route path="/signup" component={SignUpComponent} />
                         <Route path="/signin" component={SignInComponent} />
+                        <Route path="/myquiz" component={MyQuizComponent} />
+                        <Route path="/quiz/:quizId" component={QuizViewComponent} />
                     </Switch>
                 </div>
             </Router>
