@@ -3,6 +3,8 @@ const initState = {
 }
 
 const authReducer = (state = initState, action) => {
+  console.log("deafult " + action.type);
+
   switch(action.type){
     case 'LOGIN_ERROR':
       console.log('login error: ' + action.err.message);
@@ -15,7 +17,13 @@ const authReducer = (state = initState, action) => {
       console.log('login success');
       return {
         ...state,
-        authError: null
+        authError: null,
+        userProfile: {
+          firstName: action.response.firstName,
+          lastName: action.response.lastName,
+          initials: (action.response.firstName.charAt(0) + action.response.lastName.charAt(0)).toUpperCase(),
+          score: action.response.score
+        }
       }
 
     case 'SIGNOUT_SUCCESS':
@@ -31,6 +39,23 @@ const authReducer = (state = initState, action) => {
 
     case 'SIGNUP_ERROR':
       console.log('signup error: ' + action.err.message)
+      return {
+        ...state,
+        authError: action.err.message
+      }
+
+    case 'GET_INITIAL':
+      return {
+        ...state,
+        userProfile: {
+          firstName: action.response.firstName,
+          lastName: action.response.lastName,
+          initials: (action.response.firstName.charAt(0) + action.response.lastName.charAt(0)).toUpperCase(),
+          score: action.response.score
+        }
+      }
+    case 'GET_INITIAL_ERROR':
+      console.log('GET_INITIAL error: ' + action.err.message)
       return {
         ...state,
         authError: action.err.message

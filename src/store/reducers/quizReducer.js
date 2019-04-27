@@ -12,7 +12,7 @@ const quizReducer = (state = initState, action) => {
       console.log(action.err);
       return state;
     case 'GET_USER_QUIZ_SUCCESS':
-      console.log('get quiz');
+      console.log('get user quiz');
       console.log(action.response);
       return{
         ...state,
@@ -31,13 +31,26 @@ const quizReducer = (state = initState, action) => {
       console.log(action.response);
       return {
         ...state,
-        quiz: action.response
+        quiz: action.response,
+        cards: action.response.cards
       };
     case 'GET_QUIZ_ERROR':
       console.log('get quiz error');
       console.log(action.err);
       state.quizError = action.err;
       return state;
+    case 'ADD_CARD_SUCCESS':
+      console.log('add card');
+      let cards = state.cards ? state.cards : [];
+      state.cards = [...cards,action.new_card];
+      return state;
+    case 'GET_CARD_ERROR':
+      console.log('get card error');
+      console.log(action.err);
+      return{
+        ...state,
+        cardError: action.err
+      };
     case 'GET_CARD_SUCCESS':
       console.log('get card');
       console.log(action.response);
@@ -45,6 +58,17 @@ const quizReducer = (state = initState, action) => {
       return state;
     case 'GET_CARD_ERROR':
       console.log('get card error');
+      console.log(action.err);
+      return{
+        ...state,
+        cardError: action.err
+      };
+    case 'UPDATE_CARDLIST_SUCCESS':
+      console.log('update card successfully');
+      state.cards = action.new_cardList;
+      return state;
+    case 'UPDATE_CARDLIST_ERROR':
+      console.log('update card error');
       console.log(action.err);
       return{
         ...state,

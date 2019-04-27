@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { signOut } from '../../store/actions/authActions'
 
 const SignedInLinks = (props) => {
+  console.log("@@@@@@@@@");
+  console.log(props);
   if (!props.mobile){
     return (
       <div>
@@ -11,7 +13,7 @@ const SignedInLinks = (props) => {
           <li><NavLink  className="menu-link" to='/myquiz'>My Quiz</NavLink></li>
           <li><a onClick={props.signOut}>Log Out</a></li>
           <li><NavLink  className="menu-link" to='/' className="btn btn-floating pink lighten-1">
-            {props.profile.initials}
+            {props.profile ? props.profile.initials : ''}
           </NavLink></li>
         </ul>
       </div>
@@ -24,7 +26,7 @@ const SignedInLinks = (props) => {
           <li onClick={()=>dismissSideNav()}><NavLink  className="menu-link" to='/myquiz'>My Quiz</NavLink></li>
           <li ><a onClick={props.signOut}>Log Out</a></li>
           <li onClick={()=>dismissSideNav()}><NavLink  className="menu-link" to='/' className="btn btn-floating pink lighten-1">
-            {props.profile.initials}
+            {props.profile ? props.profile.initials : ''}
           </NavLink></li>
         </ul>
     )

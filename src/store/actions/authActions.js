@@ -1,12 +1,17 @@
 export const signIn = (credentials) => {
-  return (dispatch, getState, {getFirebase}) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
     const firebase = getFirebase();
-    
+    const firestore = getFirestore();
     firebase.auth().signInWithEmailAndPassword(
       credentials.email,
       credentials.password
     ).then((res) => {
-      dispatch({ type: 'LOGIN_SUCCESS' });
+      return firestore.collection('users').doc(res.user.uid).get().then((doc) => {
+        let response = doc.data();
+        dispatch({ type: 'LOGIN_SUCCESS' , response});
+      }).catch((err) => {
+        dispatch({ type: 'LOGIN_ERROR', err });
+      });
     }).catch((err) => {
       dispatch({ type: 'LOGIN_ERROR', err });
     });
@@ -48,3 +53,16 @@ export const signUp = (newUser) => {
     });
   }
 }
+
+export const getInitial = (userID) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    firestore.collection('users').doc(userID).get().then((doc) => {
+        let response = doc.data();
+        dispatch({ type: 'GET_INITIAL' , response});
+      }).catch((err) => {
+        dispatch({ type: 'GET_INITIAL_ERROR', err });
+      });
+    }
+  }

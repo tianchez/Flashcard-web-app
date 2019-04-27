@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 import { connect } from 'react-redux'
+import { getInitial } from '../../store/actions/authActions'
+
 import M from "materialize-css/dist/js/materialize.min.js";
 import './Navbar.scss';
 
@@ -21,8 +23,14 @@ class NavbarComponent extends Component{
   }
 
   render(){
+    console.log("###");
+    console.log(this.props);
+    if (this.props.auth.uid && !this.props.profile){
+      this.props.getInitial(this.props.auth.uid);
+    }
     this.desktop_links = this.props.auth.uid ? <SignedInLinks profile={this.props.profile} mobile={false} /> : <SignedOutLinks mobile={false}/>;
     this.mobile_links = this.props.auth.uid ? <SignedInLinks profile={this.props.profile} mobile={true} /> : <SignedOutLinks mobile={true}/>;
+
 
     return (
       <div className="nav-bar">
@@ -46,12 +54,21 @@ class NavbarComponent extends Component{
 
 }
 
-
 const mapStateToProps = (state) => {
+  console.log("!!!!!!!!!");
+  console.log(state);
   return{
     auth: state.firebase.auth,
-    profile: state.firebase.profile
+    profile: state.auth.userProfile
   }
 }
 
-export default connect(mapStateToProps)(NavbarComponent)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getInitial: (userid) => {
+      dispatch(getInitial(userid));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavbarComponent)

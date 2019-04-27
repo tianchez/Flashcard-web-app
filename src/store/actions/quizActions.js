@@ -81,6 +81,21 @@ export const getQuiz = (quizId) => {
   }
 };
 
+// add card by quiz id
+export const addCard = (quizId, new_card) => {
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore();
+    firestore.collection('quiz').doc(quizId).update({
+      cards: firestore.FieldValue.arrayUnion(new_card)
+      }).then(() => {
+        dispatch({ type: 'ADD_CARD_SUCCESS',new_card});
+      }).catch(err => {
+        console.log(err);
+        dispatch({ type: 'ADD_CARD_ERROR',err});
+    });
+  }
+};
+
 export const getCards = (quizId) => {
   return (dispatch, getState, {getFirestore}) => {
     const firestore = getFirestore();
@@ -90,6 +105,20 @@ export const getCards = (quizId) => {
       }).catch(err => {
         console.log(err);
         dispatch({ type: 'GET_CARD_ERROR',err});
+    });
+  }
+};
+
+export const updateCardList = (quizId, new_cardList) => {
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore();
+    firestore.collection('quiz').doc(quizId).update({
+      cards: new_cardList
+      }).then(() => {
+        dispatch({ type: 'UPDATE_CARDLIST_SUCCESS',new_cardList});
+      }).catch(err => {
+        console.log(err);
+        dispatch({ type: 'UPDATE_CARDLIST_ERROR',err});
     });
   }
 };
