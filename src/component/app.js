@@ -10,6 +10,11 @@ import SignInComponent from './login/SignIn'
 import MyQuizComponent from './myQuiz/myQuiz'
 import QuizViewComponent from './myQuiz/quizView'
 
+import AllQuizComponent from './quizCenter/allQuiz'
+import ChallengeHomeComponent from './quizCenter/challenge/challengeHome'
+import ChallengeViewComponent from './quizCenter/challenge/challengeView'
+
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -30,6 +35,9 @@ class App extends Component {
                         <Route path="/signin" component={SignInComponent} />
                         <Route path="/myquiz" component={MyQuizComponent} />
                         <Route path="/quiz/:quizId" component={QuizViewComponent} />
+                        <Route path="/quiz-center" component={AllQuizComponent} />
+                        <Route path="/challenge/:quizId" component={ChallengeHomeComponent} />
+                        <Route path="/test/:quizId/:cardId" component={ChallengeViewComponent} />
                     </Switch>
                 </div>
             </Router>

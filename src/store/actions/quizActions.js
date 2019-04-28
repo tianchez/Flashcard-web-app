@@ -1,4 +1,4 @@
-export const createQuiz = (name, description) => {
+export const createQuiz = (name, description, firstName, lastName) => {
   const randomString =(length_)=> {
     var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghiklmnopqrstuvwxyz'.split('');
     if (typeof length_ !== "number") {
@@ -24,6 +24,8 @@ export const createQuiz = (name, description) => {
       cards: [],
       scores: [],
       authorId: authorId,
+      authorFirstName: firstName,
+      authorLastName: lastName,
       createdAt: new Date()
     }).then(() => {
       // Add quiz in user
@@ -73,7 +75,27 @@ export const getQuiz = (quizId) => {
     const firestore = getFirestore();
     firestore.collection('quiz').doc(quizId).get().then((doc) => {
         let response = doc.data();
-        dispatch({ type: 'GET_QUIZ_SUCCESS',response});
+        dispatch({ type: 'GET_QUIZ_SUCCESS',response, quizId});
+      }).catch(err => {
+        console.log(err);
+        dispatch({ type: 'GET_QUIZ_ERROR',err});
+    });
+  }
+};
+
+// get quiz by quiz id
+export const getAllQuiz = () => {
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore();
+    console.log("@@@@@@@@@@@@@@@");
+    console.log(getState());
+    firestore.collection('quiz').get().then((res) => {
+        let response = res.docs.map((doc, index) => {
+          let data = doc.data();
+          data['quizId'] = res.docs[index].id;
+          return data;
+        });
+        dispatch({ type: 'GET_ALL_QUIZ_SUCCESS',response});
       }).catch(err => {
         console.log(err);
         dispatch({ type: 'GET_QUIZ_ERROR',err});
@@ -119,6 +141,41 @@ export const updateCardList = (quizId, new_cardList) => {
       }).catch(err => {
         console.log(err);
         dispatch({ type: 'UPDATE_CARDLIST_ERROR',err});
+    });
+  }
+};
+
+
+export const postScore = (quizId, score, userId, profile) => {
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore();
+    let score_obj = {
+      userId: userId,
+      name: profile.firstName + ' '+profile.lastName,
+      score: score,
+    }
+    console.log("asdf");
+    console.log(score_obj);
+    firestore.collection('quiz').doc(quizId).update({
+      score: firestore.FieldValue.arrayUnion(score_obj)
+      }).then(() => {
+        dispatch({ type: 'POST_SCORE_SUCCESS',score_obj});
+      }).catch(err => {
+        console.log(err);
+        dispatch({ type: 'POST_SCORE_ERROR',err});
+    });
+  }
+};
+
+export const getScores = (quizId) => {
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore();
+    firestore.collection('quiz').doc(quizId).get().then((doc) => {
+        let response = doc.data().score;
+        dispatch({ type: 'GET_SCORE_SUCCESS',response});
+      }).catch(err => {
+        console.log(err);
+        dispatch({ type: 'GET_CARD_ERROR',err});
     });
   }
 };

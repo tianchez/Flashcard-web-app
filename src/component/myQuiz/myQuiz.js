@@ -24,7 +24,7 @@ class MyQuizComponent extends Component{
       }
 
     addQuiz(){
-        this.props.createQuiz(this.state.name, this.state.description);
+        this.props.createQuiz(this.state.name, this.state.description, this.props.profile.firstName, this.props.profile.lastName);
     }
 
     getQuiz(){
@@ -38,6 +38,8 @@ class MyQuizComponent extends Component{
         });
       }
     render(){
+        console.log("qqqq");
+        console.log(this.props);
         console.log(this.props.quizList);
         let cards_div = this.props.quizList ? this.props.quizList.map((item)=>{
             let toLink = `/quiz/${item.quizId}`;
@@ -114,6 +116,7 @@ const mapStateToProps = (state) => {
     return{
       auth: state.firebase.auth,
       quizList: state.quiz.userQuiz,
+      profile: state.auth.userProfile,
       loaded: !state.quiz.userQuiz ? false : true
     }
   }
@@ -123,8 +126,8 @@ const mapDispatchToProps = (dispatch) => {
       getQuiz: () => {
         dispatch(getUserQuiz());
       },
-      createQuiz: (name, description) => {
-        dispatch(createQuiz(name, description));
+      createQuiz: (name, description, firstName, lastName) => {
+        dispatch(createQuiz(name, description, firstName, lastName));
       }
     }
   }

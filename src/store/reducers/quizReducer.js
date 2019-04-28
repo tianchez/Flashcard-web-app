@@ -28,10 +28,11 @@ const quizReducer = (state = initState, action) => {
       };
     case 'GET_QUIZ_SUCCESS':
       console.log('get quiz');
-      console.log(action.response);
+      let quiz = action.response;
+      quiz['quizId'] = action.quizId;
       return {
         ...state,
-        quiz: action.response,
+        quiz: quiz,
         cards: action.response.cards
       };
     case 'GET_QUIZ_ERROR':
@@ -39,6 +40,13 @@ const quizReducer = (state = initState, action) => {
       console.log(action.err);
       state.quizError = action.err;
       return state;
+    case 'GET_ALL_QUIZ_SUCCESS':
+      console.log('get all quiz');
+      console.log(action.response);
+      return {
+        ...state,
+        allQuiz: action.response
+      };
     case 'ADD_CARD_SUCCESS':
       console.log('add card');
       let cards = state.cards ? state.cards : [];
@@ -73,6 +81,17 @@ const quizReducer = (state = initState, action) => {
       return{
         ...state,
         cardError: action.err
+      };
+    case 'POST_SCORE_SUCCESS':
+      console.log('post score successfully');
+      state.score_obj = action.score_obj;
+      return state;
+    case 'POST_SCORE_ERROR':
+      console.log('post score error');
+      console.log(action.err);
+      return{
+        ...state,
+        scoreError: action.err
       };
     default:
       return state;
