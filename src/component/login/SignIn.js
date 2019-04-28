@@ -58,16 +58,8 @@ class SignInComponent extends Component {
 
   componentDidUpdate(prevProps){    
     if(prevProps.authTime !== this.props.authTime && this.props.authError !== null){
-      console.log("!!"); 
-      console.log(this.props.authError);
       this.addNotification('Login Error', this.props.authError, 'danger');
     }
-    // else if(prevProps.authTime !== this.props.authTime){
-    //   console.log("@@");
-    //   console.log(this.props);
-    //   console.log(this.props.auth);
-    //   // this.addNotification('Login successfully', '111', 'success');
-    // }
   }
 
   addNotification(title, msg, type) {

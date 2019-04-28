@@ -15,28 +15,22 @@ class ChallengeResultComponent extends Component{
     constructor(props){
         super(props);
         this.state ={name:'', description:'', challengeState: '', cards:[]}
-        console.log("qqqqq");
-        console.log(this.props);
-        if (this.props.score != NaN && this.props.score != undefined)
-            this.props.postScore(this.props.quizId, this.props.score, this.props.auth.uid, this.props.profile);
     }
 
     componentDidMount() {
-      var elems = document.querySelectorAll('.modal');
-      var instances = M.Modal.init(elems);
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
     }
 
     getQuiz(){
         // this.props.getQuiz(this.quizId);
     }
 
+    openScore(){
+        this.forceUpdate();
+      }
+
     render(){
-        console.log("aaaaa@@@");
-        console.log(this.props);
-        if (!this.props.loaded){
-          return (<Loading />)
-        }
-        else{
           return(
             <div className="challenge-container">
                 <div className='overlay'>
@@ -47,9 +41,9 @@ class ChallengeResultComponent extends Component{
              <div className="centered-text">
                  <h4 className="title-text">Quiz is finished</h4>
                  <button className="challenge-home-button cyan accent-4">Back</button>
-                 <button data-target="challenge-modal"  className="challenge-home-button cyan accent-4 modal-trigger">Score board</button>
+                 <button data-target="result-modal"  className="challenge-home-button cyan accent-4 modal-trigger" onClick={()=>this.openScore()}>Score board</button>
              </div>
-             <div id="challenge-modal" className="modal">
+             <div id="result-modal" className="modal">
                     <ChallengeScoreLayout quizId={this.props.quizId} />
                      <div className="modal-footer">
                          <a className="modal-close waves-effect waves-red btn-flat">Ok</a>
@@ -58,14 +52,8 @@ class ChallengeResultComponent extends Component{
             </div>
          
          );
-        }
         
-    }
-    
-    componentDidUpdate(prevProps){    
-        if (prevProps.auth != this.props.auth){
-            this.getQuiz();
-        }
+        
     }
 }
 
@@ -74,7 +62,7 @@ const mapStateToProps = (state) => {
       auth: state.firebase.auth,
       quiz: state.quiz.quiz,
       profile: state.auth.userProfile,
-      loaded: state.quiz.quiz && state.quiz.quiz.authorId
+      loaded: state.quiz.score_obj
     }
   }
 

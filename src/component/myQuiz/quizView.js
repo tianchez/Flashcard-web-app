@@ -31,7 +31,6 @@ class QuizViewComponent extends Component{
 
     editButtonClicked(){
       this.setState({editButton_text: this.state.editButton_text === 'Edit' ? 'Finish' : 'Edit'})
-      console.log(this.state.editButton_text);
     }
 
     addButtonClicked(){
@@ -238,8 +237,6 @@ class QuizViewComponent extends Component{
 }
 
 const mapStateToProps = (state) => {
-  // console.log("@@@");
-  // console.log(state);
   return{
     auth: state.firebase.auth,
     cardList: state.quiz.cards ? state.quiz.cards : [],

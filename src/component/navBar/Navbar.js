@@ -23,8 +23,6 @@ class NavbarComponent extends Component{
   }
 
   render(){
-    console.log("###");
-    console.log(this.props);
     if (this.props.auth.uid && !this.props.profile){
       this.props.getInitial(this.props.auth.uid);
     }
@@ -52,11 +50,16 @@ class NavbarComponent extends Component{
 
   }
 
+  componentDidUpdate(prevProps){
+    //Update initial after signing up    
+    if (this.props.auth.uid && prevProps.profile && (prevProps.profile.firstName != this.props.profile.firstName || prevProps.profile.lastName != this.props.profile.lastName) ){
+      this.props.getInitial(this.props.auth.uid);
+    }
+}
+
 }
 
 const mapStateToProps = (state) => {
-  console.log("!!!!!!!!!");
-  console.log(state);
   return{
     auth: state.firebase.auth,
     profile: state.auth.userProfile

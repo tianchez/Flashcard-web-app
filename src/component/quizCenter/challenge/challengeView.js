@@ -7,7 +7,7 @@ import ReactNotification from "react-notifications-component";
 
 
 import Loading from '../../loadingIcon/loading'
-import {getQuiz} from '../../../store/actions/quizActions'
+import {getQuiz, postScore} from '../../../store/actions/quizActions'
 import ChallengeResultComponent from './challengeResult'
 import './challengeView.scss'
 
@@ -18,8 +18,6 @@ class ChallengeViewComponent extends Component{
     constructor(props){
         super(props);
         let cardList = this.props.cardList.map(item=>{
-            console.log('sssss');
-            console.log(item);
             var shuffle = function (array) {
                 var currentIndex = array.length;
                 var temporaryValue, randomIndex; 
@@ -38,15 +36,10 @@ class ChallengeViewComponent extends Component{
             };
 
             let choices = [...item.similarWords, item.term];
-            console.log(choices);
-            shuffle(choices);
-            console.log(choices);
             item.similarWords = choices;
             return item;
         });
         this.state ={curr_card_index: 0, choice_selected: false, cardList: cardList, correct_ans: 0};
-        console.log("####");
-        console.log(this.props);
 
         this.choiceSelected = this.choiceSelected.bind(this);
         this.addNotification = this.addNotification.bind(this);
@@ -77,6 +70,11 @@ class ChallengeViewComponent extends Component{
 
         // Go to next page
         this.setState({choice_selected: true, correct_ans: correct_num}, ()=>{
+            if (this.state.curr_card_index === this.state.cardList.length-1){
+                let score = this.state.correct_ans / this.state.cardList.length
+                this.props.postScore(this.props.quizId, score, this.props.auth.uid, this.props.profile);
+            }
+
             setTimeout(()=>{
                 clicked_button.className = 'choice-button';
                 this.setState({choice_selected :false, curr_card_index: this.state.curr_card_index+1});
@@ -85,8 +83,6 @@ class ChallengeViewComponent extends Component{
     }
 
     render(){
-        console.log("aaaaa@@@");
-        console.log(this.props);
       
         let description_card = ()=> {
             let index = this.state.curr_card_index;
@@ -103,8 +99,6 @@ class ChallengeViewComponent extends Component{
         let choices_div = ()=>{
             let index = this.state.curr_card_index;
             let curr_card = this.state.cardList[index];
-            console.log("$$$");
-            console.log(curr_card);
 
             let similarWords_div = curr_card.similarWords.map((item, index)=>{
                 if (item !== curr_card.term){
@@ -195,6 +189,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
       getQuiz: (quizId) => {
         dispatch(getQuiz(quizId));
+      },
+      postScore: (quizId, score, userId, profile) => {
+        dispatch(postScore(quizId, score, userId, profile));
       }
     }
   }

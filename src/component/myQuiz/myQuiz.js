@@ -28,7 +28,6 @@ class MyQuizComponent extends Component{
     }
 
     getQuiz(){
-        console.log("$$$");
         this.props.getQuiz();
     }
 
@@ -38,9 +37,6 @@ class MyQuizComponent extends Component{
         });
       }
     render(){
-        console.log("qqqq");
-        console.log(this.props);
-        console.log(this.props.quizList);
         let cards_div = this.props.quizList ? this.props.quizList.map((item)=>{
             let toLink = `/quiz/${item.quizId}`;
             return (
@@ -98,21 +94,12 @@ class MyQuizComponent extends Component{
     
     componentDidUpdate(prevProps){    
         if (prevProps.auth != this.props.auth){
-            console.log("!!!");
-            console.log(this.props.auth);
             this.props.getQuiz();
         }
-        // if(prevProps.authTime !== this.props.authTime && this.props.authError !== null){
-        //   console.log("!!"); 
-        //   console.log(this.props.authError);
-        //   this.addNotification('Login Error', this.props.authError, 'danger');
-        // }
     }
 }
 
 const mapStateToProps = (state) => {
-    console.log("@@@");
-    console.log(state);
     return{
       auth: state.firebase.auth,
       quizList: state.quiz.userQuiz,

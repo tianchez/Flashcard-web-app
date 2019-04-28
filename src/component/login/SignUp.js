@@ -30,7 +30,6 @@ class SignUpComponent extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-    console.log(this);
     this.props.signUp(this.state);
   }
 
@@ -69,8 +68,6 @@ class SignUpComponent extends Component {
 
   componentDidUpdate(prevProps){    
     if(prevProps.authTime !== this.props.authTime && this.props.authError !== null){
-      console.log("!!"); 
-      console.log(this.props.authError);
       this.addNotification('Signup Error', this.props.authError, 'danger');
     }
   }
@@ -91,7 +88,6 @@ class SignUpComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     auth: state.firebase.auth,
     authError: state.auth.authError,

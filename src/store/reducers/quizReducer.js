@@ -93,6 +93,11 @@ const quizReducer = (state = initState, action) => {
         ...state,
         scoreError: action.err
       };
+    case 'GET_SCORE_SUCCESS':
+      console.log('get score');
+      console.log(action.response);
+      state.score = action.response;
+      return state;
     default:
       return state;
   }

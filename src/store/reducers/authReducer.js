@@ -34,7 +34,13 @@ const authReducer = (state = initState, action) => {
       console.log('signup success')
       return {
         ...state,
-        authError: null
+        authError: null,
+        userProfile: {
+          firstName: action.newUser.firstName,
+          lastName: action.newUser.lastName,
+          initials: (action.newUser.firstName.charAt(0) + action.newUser.lastName.charAt(0)).toUpperCase(),
+          score: action.newUser.score
+        }
       }
 
     case 'SIGNUP_ERROR':

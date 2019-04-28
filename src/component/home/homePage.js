@@ -7,8 +7,6 @@ import './homePage.scss';
 class HomePageComponent extends Component{
     constructor(props){
         super(props);
-		  console.log("!@!!!#");
-
     }
 
     componentDidMount(){

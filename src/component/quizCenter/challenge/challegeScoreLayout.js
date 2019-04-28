@@ -13,13 +13,13 @@ class ChallengeScoreLayout extends Component{
         this.props.getScores(this.props.quizId);
     }
 
+    componentDidMount(){
+    
+    }
+
 
     render(){
-        console.log("aaaaa@@@");
-        console.log(this.props);
-        console.log(this.props.quiz.score);
-
-        let score_arr = this.props.quiz.score? this.props.quiz.score.sort((a, b)=>{
+        let score_arr = this.props.scoreList? this.props.scoreList.sort((a, b)=>{
             return b.score- a.score;
         }) : [];
         let score_div = score_arr.map((item, index)=>{
@@ -27,15 +27,11 @@ class ChallengeScoreLayout extends Component{
                 <tr>
                     <td>{index+1}.</td>
                     <td>{item.name}</td>
-                    <td>{item.score}</td>
+                    <td>{Math.floor(item.score*100)}</td>
                 </tr>
             )
         });
 
-        if (!this.props.loaded){
-          return (<Loading />)
-        }
-        else{
           return(
             <div className="modal-content score-container">
                 <h4>Top score</h4>
@@ -52,7 +48,6 @@ class ChallengeScoreLayout extends Component{
                 </table>
             </div>
          );
-        }
         
     }
 
@@ -63,7 +58,8 @@ const mapStateToProps = (state) => {
       auth: state.firebase.auth,
       quiz: state.quiz.quiz,
       profile: state.auth.userProfile,
-      loaded: state.quiz.score_obj
+      scoreList: state.quiz.score,
+      loaded: state.quiz.score
     }
   }
 

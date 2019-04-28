@@ -25,7 +25,6 @@ class AllQuizComponent extends Component{
     }
 
     render(){
-        console.log(this.props.quizList);
         let cards_div = this.props.quizList ? this.props.quizList.map((item)=>{
             let toLink = `/challenge/${item.quizId}`;
             return (

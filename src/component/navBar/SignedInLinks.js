@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { signOut } from '../../store/actions/authActions'
 
 const SignedInLinks = (props) => {
-  console.log("@@@@@@@@@");
-  console.log(props);
   if (!props.mobile){
     return (
       <div>

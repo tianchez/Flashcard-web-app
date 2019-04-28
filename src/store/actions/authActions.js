@@ -46,7 +46,7 @@ export const signUp = (newUser) => {
         score:[]
       });
     }).then(() => {
-      dispatch({ type: 'SIGNUP_SUCCESS' });
+      dispatch({ type: 'SIGNUP_SUCCESS', newUser});
     }).catch((err) => {
       console.log(err);
       dispatch({ type: 'SIGNUP_ERROR', err});
