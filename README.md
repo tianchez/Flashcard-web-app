@@ -8,8 +8,8 @@ With QuizMe, users can create their own flash cards to make quizzes for friends.
 QuizMe adopts Responsive web design during the development. Users can access to this web application from any devices.
 
 <p align='center'>
-<img src='https://github.com/tianchez/Flashcard-web-app/tree/master/doc/destop.png' width='600' alt='destop-screenshot'>
-<img src='https://github.com/tianchez/Flashcard-web-app/tree/master/doc/mobile.png' width='600' alt='mobile-screenshot'>
+<img src='https://github.com/tianchez/Flashcard-web-app/blob/master/doc/desktop.png' width='600' alt='destop-screenshot'>
+<img src='https://github.com/tianchez/Flashcard-web-app/blob/master/doc/mobile.png' width='600' alt='mobile-screenshot'>
 </p>
 
 ## Prerequisites
