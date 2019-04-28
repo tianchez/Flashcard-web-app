@@ -1,7 +1,7 @@
 {
   "name": "react-start",
   "version": "1.0.0",
-  "description": "for Salesforce's interview",
+  "description": "QuizMe",
   "main": "index.js",
   "homepage": "https://tianchez.github.io/Flashcard-web-app",
   "scripts": {
