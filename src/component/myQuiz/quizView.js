@@ -33,6 +33,13 @@ class QuizViewComponent extends Component{
       this.setState({editButton_text: this.state.editButton_text === 'Edit' ? 'Finish' : 'Edit'})
     }
 
+    deleteButtonClicked(){
+      let old_index = this.state.curr_card_index;
+      let new_index = old_index === this.state.cardList.length -1 ? old_index-1 : old_index
+      new_index = new_index < 0 ? 0 : new_index;
+      this.setState({cardList: this.state.cardList.filter((item, index)=> index !== old_index), curr_card_index: new_index});
+    }
+
     addButtonClicked(){
       let new_cardList = this.state.cardList;
       let term = this.state.newCard.term;
@@ -82,6 +89,8 @@ class QuizViewComponent extends Component{
     }
 
     render(){
+      console.log("oooo");
+      console.log(this.state.cardList);
       let term_card = ()=> {
         let index = this.state.curr_card_index;
         let curr_card = this.state.cardList[index];
@@ -152,8 +161,9 @@ class QuizViewComponent extends Component{
                 <p>{this.props.quiz ? this.props.quiz.description : ''}</p>
                 <div className="card-edit-bar">
                   <button data-target="add-card-modal" className="btn quiz-buttons modal-trigger">Add card</button>
+                  {this.state.cardList.length > 0 ? <button className="btn quiz-buttons" onClick={()=>this.deleteButtonClicked()}>Delete card</button> : ''}
                   {this.state.cardList.length > 0 ? <button className="btn quiz-buttons" onClick={()=>this.editButtonClicked()}>{this.state.editButton_text}</button> : ''}
-                  {this.state.cardList.length > 0 ? <button className="btn quiz-buttons" onClick={()=>this.saveButtonClicked()}>Save</button> : ''}
+                  <button className="btn quiz-buttons" onClick={()=>this.saveButtonClicked()}>Save</button>
                 </div>
                 {this.state.cardList && this.state.cardList.length > 0 ? (
                   <div className="card-container flip-card">
@@ -217,7 +227,9 @@ class QuizViewComponent extends Component{
       }
       
       if (prevProps.cardList != this.props.cardList && prevProps.cardList.length > 0 && this.props.quiz.quizId === prevProps.quiz.quizId){
-        this.addNotification('Save successfully', 'You changes have been saved successfully', 'success');
+        if (JSON.stringify(prevProps.cardList) !== JSON.stringify(this.props.cardList)){
+          this.addNotification('Save successfully', 'You changes have been saved successfully', 'success');
+        }
     }
   }
   

@@ -71,7 +71,7 @@ class ChallengeViewComponent extends Component{
         // Go to next page
         this.setState({choice_selected: true, correct_ans: correct_num}, ()=>{
             if (this.state.curr_card_index === this.state.cardList.length-1){
-                let score = this.state.correct_ans / this.state.cardList.length
+                let score = this.state.correct_ans / this.state.cardList.length;
                 this.props.postScore(this.props.quizId, score, this.props.auth.uid, this.props.profile);
             }
 
@@ -149,7 +149,7 @@ class ChallengeViewComponent extends Component{
              );
         }
         else{
-            return (<ChallengeResultComponent quizId={this.props.quizId} score={this.state.correct_ans / this.state.cardList.length} backgroundColorCode={backgroundColorCode}/>);
+            return (<ChallengeResultComponent quizId={this.props.quizId} score={Math.floor(this.state.correct_ans / this.state.cardList.length*100)} backgroundColorCode={backgroundColorCode}/>);
 
         }
         

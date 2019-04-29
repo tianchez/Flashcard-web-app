@@ -40,7 +40,8 @@ class ChallengeResultComponent extends Component{
              </div>
              <div className="centered-text">
                  <h4 className="title-text">Quiz is finished</h4>
-                 <button className="challenge-home-button cyan accent-4">Back</button>
+                 <p>Your score is {this.props.score}</p>
+                 <button className="challenge-home-button cyan accent-4"><Link to='/quiz-center'>Back</Link></button>
                  <button data-target="result-modal"  className="challenge-home-button cyan accent-4 modal-trigger" onClick={()=>this.openScore()}>Score board</button>
              </div>
              <div id="result-modal" className="modal">

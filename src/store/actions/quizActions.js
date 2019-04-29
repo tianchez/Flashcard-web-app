@@ -83,6 +83,33 @@ export const getQuiz = (quizId) => {
   }
 };
 
+export const deleteQuiz = (quizId) => {
+  return (dispatch, getState, {getFirestore}) => {
+    const firestore = getFirestore();
+    const authorId = getState().firebase.auth.uid;
+    firestore.collection('quiz').doc(quizId).delete().then((doc) => {
+        firestore.collection('users').doc(authorId).get().then((doc1) => {
+          let res = doc1.data().quizes;
+          res = res.filter(item => item.quizId !== quizId);
+          firestore.collection('users').doc(authorId).update({
+            quizes: res
+            }).then(() => {
+              dispatch({ type: 'DELETE_QUIZ_SUCCESS',res, quizId});
+            }).catch(err => {
+              console.log(err);
+              dispatch({ type: 'UPDATE_USER_QUIZ_ERROR',err});
+          }); 
+        }).catch(err => {
+          console.log(err);
+          dispatch({ type: 'GET_USER_QUIZ_ERROR',err});
+        });
+      }).catch(err => {
+        console.log(err);
+        dispatch({ type: 'GET_QUIZ_ERROR',err});
+    });
+  }
+};
+
 // get quiz by quiz id
 export const getAllQuiz = () => {
   return (dispatch, getState, {getFirestore}) => {

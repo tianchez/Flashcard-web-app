@@ -47,6 +47,12 @@ const quizReducer = (state = initState, action) => {
         ...state,
         allQuiz: action.response
       };
+    case 'DELETE_QUIZ_SUCCESS':
+      console.log('delete quiz');
+      console.log(action.res);
+      state.userQuiz = action.res;
+      console.log(state);
+      return state;
     case 'ADD_CARD_SUCCESS':
       console.log('add card');
       let cards = state.cards ? state.cards : [];

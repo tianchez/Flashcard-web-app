@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 
 import Loading from '../loadingIcon/loading'
 
-import {getUserQuiz, createQuiz} from '../../store/actions/quizActions'
+import {getUserQuiz, createQuiz, deleteQuiz} from '../../store/actions/quizActions'
 import M from "materialize-css/dist/js/materialize.min.js";
 
 import './myQuiz.scss';
@@ -31,6 +31,12 @@ class MyQuizComponent extends Component{
         this.props.getQuiz();
     }
 
+    removeQuiz(quizId){
+        console.log("aaa");
+        console.log(quizId);
+        this.props.deleteQuiz(quizId);
+    }
+
     handleChange(e){
         this.setState({
           [e.target.id]: e.target.value
@@ -44,6 +50,7 @@ class MyQuizComponent extends Component{
                         <div className="card blue-grey darken-1">
                             <div className="card-content white-text">
                             <span className="card-title">{item.name}</span>
+                            <a class="btn-floating halfway-fab waves-effect waves-light red" onClick={() =>this.removeQuiz(item.quizId)}><i class="material-icons">close</i></a>
                             <p className="card-text">{item.description}</p>
                             </div>
                             <div className="card-action">
@@ -96,6 +103,11 @@ class MyQuizComponent extends Component{
         if (prevProps.auth != this.props.auth){
             this.props.getQuiz();
         }
+
+        if (prevProps.quizList != this.props.quizList){
+            console.log("aaaaa");
+            this.forceUpdate();
+        }
     }
 }
 
@@ -115,6 +127,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       createQuiz: (name, description, firstName, lastName) => {
         dispatch(createQuiz(name, description, firstName, lastName));
+      },
+      deleteQuiz: (quizId) => {
+        dispatch(deleteQuiz(quizId));
       }
     }
   }
