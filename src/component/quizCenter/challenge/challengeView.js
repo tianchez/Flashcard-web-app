@@ -36,6 +36,7 @@ class ChallengeViewComponent extends Component{
             };
 
             let choices = [...item.similarWords, item.term];
+            shuffle(choices);
             item.similarWords = choices;
             return item;
         });
