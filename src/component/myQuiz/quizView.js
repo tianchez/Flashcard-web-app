@@ -12,7 +12,7 @@ class QuizViewComponent extends Component{
     constructor(props){
       super(props);
       this.quizId = this.props.match.params.quizId;
-      this.state= {editButton_text: 'Edit', curr_card_index: 0, cardOnFront: true, cardList: this.props.cardList, newCard:{term:'', description:'', imageURL:'', similarWords:[]}};
+      this.state= {quizId:this.quizId, editButton_text: 'Edit', curr_card_index: 0, cardOnFront: true, cardList: this.props.cardList, newCard:{term:'', description:'', imageURL:'', similarWords:[]}};
       this.props.getQuiz(this.quizId);
 
       this.rotateClicked = this.rotateClicked.bind(this);
@@ -52,7 +52,7 @@ class QuizViewComponent extends Component{
 
     saveButtonClicked(){
       this.setState({editButton_text: 'Edit'}, ()=>{
-        this.props.updateCardList(this.quizId, this.state.cardList);
+        this.props.updateCardList(this.state.quizId, this.state.cardList);
       })
     }
 
@@ -89,8 +89,6 @@ class QuizViewComponent extends Component{
     }
 
     render(){
-      console.log("oooo");
-      console.log(this.state.cardList);
       let term_card = ()=> {
         let index = this.state.curr_card_index;
         let curr_card = this.state.cardList[index];
