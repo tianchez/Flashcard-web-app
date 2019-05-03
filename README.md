@@ -1,6 +1,7 @@
 # Flashcard-web-app
 
 This repo is the source code for *QuizMe*, deployed on https://tianchez.github.io/Flashcard-web-app . 
+Here are slides that include technical architecture design of QuizMe and how I came up the idea for QuizMe: https://drive.google.com/file/d/1Bc0bVWuYIgEsuUw7uVs4yxVMoNv2vZrc/view?usp=sharing
 
 ## Intorduction
 With QuizMe, users can create their own flash cards to make quizzes for friends. Quizzes can be easily shared to social networking by URL. Any users can take quizzes and compete with other players around the world. Top users' name will be shown in the score board for each quiz.
@@ -19,8 +20,7 @@ To run and build this repo locally, you have to make sure following tools are in
 
 ## Overview
 * QuizMe is written in React v16 and Redux. 
-* All the quiz data and user credentials are processed and stored in Google Firebase. To expedite  the development of connection between Frontend and Backend, QuizMe is using react-redux-firebase
-(https://github.com/prescottprue/react-redux-firebase) to bootstrap the project. 
+* All the quiz data and user credentials are processed and stored in Google Firebase. 
 * To keep the UX experience consistent, QuizMe follows Google Material Design and uses Materialize CSS framework(https://materializecss.com/) for a more user-friendly interface. 
 * Webpack v4 is used to bundle the code and static assets. Babel is utilized to transcompile our ES6 and JSX code base to browser-compatible JavaScript
 
