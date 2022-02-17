@@ -6,7 +6,7 @@ Here are slides that include technical architecture design of QuizMe and how I c
 ## Intorduction
 With QuizMe, users can create their own flash cards to make quizzes for friends. Quizzes can be easily shared to social networking by URL. Any users can take quizzes and compete with other players around the world. Top users' name will be shown in the score board for each quiz.
 
-QuizMe adopts Responsive web design during the development. Users can access to this web application from any devices.
+QuizMe adopts Responsive web design. Users can access to this web application from any devices.
 
 <p align='center'>
 <img src='https://github.com/tianchez/Flashcard-web-app/blob/master/doc/desktop.png' width='600' alt='destop-screenshot'>
